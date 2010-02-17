@@ -40,6 +40,12 @@ A~B + B~A + ~C + A~C + C~A + ~B = ~B + ~C + ~A (B + C)
 
 A ( ~B + ~C + ~A (B + C) ) = A~B + A~C = A (~B + ~C)
 
+AB~C + ~A~B~C = ~C (AB + ~A~B)
+
+(~B + ~C + ~A (B + C) )*(B+C) = ~BC + ~CB + ~A(B + C) = ~BC + ~CB + ~AB + ~AC
+= B (~A + ~C) + C (~A + ~B)
+
+
 -------------------------
 
 Contemplating:
@@ -50,13 +56,27 @@ AB~C + ~A~B~C + ~AB~C + A~B~C = ~C
 Alternatives:
 -------------
 
-~(AB + BC + AC) = (~A + ~B)(~A + ~C)(~B + ~C) = (~A +~B~C)(~B + ~C) = 
+~(AB + BC + AC) = (~A + ~B)(~A + ~C)(~B + ~C) = (~A + ~B~C)(~B + ~C) = 
 
 ~[(A+B)(B+C)(A+C)] = ~(A+B) + ~(B+C) + ~(A+C) = ~A~B + ~B~C + ~A~C
 
 A (~A~B + ~B~C + ~A~C) = A~B~C
 
-~XY = ~X + ~Y
+A~B~C + ~AB~C = ~C(A XOR B)
+
+~A~B + ~B~C + ~A~C + A = A + ~B + ~C
+
+A~B~C + ~AB~C + C = (A XOR B) + C = C + A~B + ~AB
+
+B*(C + A~B + ~AB) = BC + ~AB = B (C + ~A)
+
+BC + ~AB + ~BA + AC = C(A + B) + (A XOR B)
+
+A~B~C + B  = B + A~C
+
+(B + A~C) + (~A~B + ~B~C + ~A~C) = ~A + ~C + B
+
+(A + ~B + ~C) * (~AB~C) = ~AB~C
 
 / ~A~B -> A + ~B ; B + ~A ; ~A~B~C ; A + ~C ; C + ~A ; ~A (~B + ~C)
 |      -> ~A~B + ~A~C
