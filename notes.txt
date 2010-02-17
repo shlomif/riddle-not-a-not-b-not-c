@@ -1,0 +1,10 @@
+
+Mort = ~(AB|AC|BC)
+Gang = ~((Mort&A)|(Mort&B)|(Mort&C)|(ABC))
+
+# Gang == NOT ( A XOR B XOR C )
+
+~A = (Mort&Gang)|(Mort&C)|(Mort&B)|(Gang&BC)
+~B = (Mort&Gang)|(Mort&C)|(Mort&A)|(Gang&AC)
+~C = (Mort&Gang)|(Mort&B)|(Mort&A)|(Gang&AB)
+
