@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use List::MoreUtils qw(all);
+use List::MoreUtils qw(notall);
 
 my $limit = 0xFF;
 
@@ -63,9 +63,8 @@ while (my ($key, $mask) = each(%initial))
 
 sub find
 {
-    my $found;
     POP:
-    while (! ($found = all { $get->($_) } ($NOT_A, $NOT_B, $NOT_C)))
+    while (notall { $get->($_) } ($NOT_A, $NOT_B, $NOT_C))
     {
         X_LOOP:
         for my $x (0 .. ($limit-1))
@@ -103,9 +102,9 @@ sub find
             }
         }
 
-        last POP;
+        return;
     }
-    return $found;
+    return 1;
 }
 
 find();
@@ -116,10 +115,9 @@ my @keys = (grep { $not_def->($_) } (0 .. $limit));
 
 for my $k_i (0 .. $#keys-1)
 {
+    print "Checking $k_i\n";
     for my $k_j ($k_i+1 .. $#keys)
     {
-        print "Checking $k_i and $k_j\n";
-
         @p = @start_p;
 
         $set->($keys[$k_i], ['i', 'k_i']);
@@ -128,7 +126,6 @@ for my $k_i (0 .. $#keys-1)
         if (find())
         {
             print sprintf("Found for 0b%.8b , 0b%.8b.\n", $keys[$k_i], $keys[$k_j]);
-            exit(0);
         }
 
     }
