@@ -10,9 +10,9 @@ my $limit = 0xFF;
 # @p is the population of the positions.
 my @p = (map { undef() } (0 .. $limit));
 
-sub lim
+sub neg
 {
-    return (shift() & $limit);
+    return ((~(shift())) & $limit);
 }
 
 my %initial;
@@ -21,9 +21,9 @@ my $A = $initial{A} = 0b11110000;
 my $B = $initial{B} = 0b11001100;
 my $C = $initial{C} = 0b10101010;
 
-my $NOT_A = lim(~$A);
-my $NOT_B = lim(~$B);
-my $NOT_C = lim(~$C);
+my $NOT_A = neg($A);
+my $NOT_B = neg($B);
+my $NOT_C = neg($C);
 
 # $initial{NOT_AND} = ((~($initial{A} & $initial{B} & $initial{C})) & $limit);
 # $initial{NOT_OR2} = ((~($initial{A} | $initial{B} | $initial{C})) & $limit);
@@ -111,24 +111,77 @@ find();
 
 my @start_p = @p;
 
-my @keys = (grep { $not_def->($_) } (0 .. $limit));
-
-for my $k_i (0 .. $#keys-1)
+foreach my $i (grep { $get->($_) } 0 .. $limit)
 {
-    print "Checking $k_i\n";
-    for my $k_j ($k_i+1 .. $#keys)
+    print "Checking $i\n";
+    
+    my $neg = neg($i);
+
+    if ($not_def->($neg))
     {
         @p = @start_p;
 
-        $set->($keys[$k_i], ['i', 'k_i']);
-        $set->($keys[$k_j], ['i', 'k_j']);
+        $set->($neg, ['~', $i]);
+        
+        find();
 
-        if (find())
+        my @i_p = @p;
+
+        foreach my $j (grep { $get->($_) } (0 .. $limit))
         {
-            print sprintf("Found for 0b%.8b , 0b%.8b.\n", $keys[$k_i], $keys[$k_j]);
-        }
+            my $neg_j = neg($j);
 
+            @p = @i_p;
+
+            if ($not_def->($neg_j))
+            {
+                $set->($neg_j, ['~', $j]);
+                
+                if (find())
+                {
+                    foreach my $signal (qw(A B C))
+                    {
+                        my $n = neg($initial{$signal});
+                        print "~$signal = ", disp($n), "\n";
+                    }
+                }
+            }
+        }
     }
 }
 
+sub disp
+{
+    my $n = shift;
 
+    my $e = $p[$n];
+
+    my $proto_ret = sub { 
+    if ($e->[0] eq "i")
+    {
+        return $e->[1];
+    }
+    elsif (($e->[0] eq "&") || ($e->[0] eq "|"))
+    {
+        return "(" . disp($e->[1]) . ")$e->[0](" . disp($e->[2]) . ")";
+    }
+    elsif ($e->[0] eq "~")
+    {
+        return "~(". disp($e->[1]) . ")";
+    }
+    else
+    {
+        die "Unknown e->[0] $e->[0]!";
+    }
+    }->();
+
+    $proto_ret =~ s{\(([ABC])\)}{$1}g;
+    $proto_ret =~ s{\(([ABC])&([ABC])\)}/
+        join("",sort { $a cmp $b } ($1,$2))
+        /eg;
+    $proto_ret =~ s/\(([ABC]{2})\|\(([ABC]{2})\|([ABC]{2})\)\)/
+        "(" . join("|", sort { $a cmp $b} ($1,$2,$3)) . ")"
+        /eg;
+
+    return $proto_ret;
+}
