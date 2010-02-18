@@ -136,4 +136,12 @@ for my $k_i (0 .. $#keys-1)
     }
 }
 
+=head1 COPYRIGHT & LICENSE
+
+Copyright 2010 Shlomi Fish.
+
+This program is released under the following license: MIT/X11
+( L<http://www.opensource.org/licenses/mit-license.php> ).
+
+=cut
 
