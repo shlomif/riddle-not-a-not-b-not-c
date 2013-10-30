@@ -94,7 +94,7 @@ sub find
                     $set->(($x | $y), ['|', $x, $y]);
                     $new = 1;
                 }
-                
+
                 if ($new)
                 {
                     next POP;
@@ -114,7 +114,7 @@ my @start_p = @p;
 foreach my $i (grep { $get->($_) } 0 .. $limit)
 {
     print "Checking $i\n";
-    
+
     my $neg = neg($i);
 
     if ($not_def->($neg))
@@ -122,7 +122,7 @@ foreach my $i (grep { $get->($_) } 0 .. $limit)
         @p = @start_p;
 
         $set->($neg, ['~', $i]);
-        
+
         find();
 
         my @i_p = @p;
@@ -136,7 +136,7 @@ foreach my $i (grep { $get->($_) } 0 .. $limit)
             if ($not_def->($neg_j))
             {
                 $set->($neg_j, ['~', $j]);
-                
+
                 if (find())
                 {
                     foreach my $signal (qw(A B C))
@@ -156,7 +156,7 @@ sub disp
 
     my $e = $p[$n];
 
-    my $proto_ret = sub { 
+    my $proto_ret = sub {
     if ($e->[0] eq "i")
     {
         return $e->[1];
