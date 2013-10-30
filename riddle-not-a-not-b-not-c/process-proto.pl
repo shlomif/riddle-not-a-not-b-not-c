@@ -8,7 +8,7 @@ use IO::All;
 sub proc
 {
     local $_ = shift;
-    
+
     s/\$get->\(\$_\)/\$p[\$_]/;
     s/\$not_def->\(([^\)]+)\)/(!defined(\$p[$1]))/;
     s/\$set->\(([^,]+),([^\)]+)\)/\$p[$1] = $2/;
