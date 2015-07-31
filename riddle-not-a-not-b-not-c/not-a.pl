@@ -8,7 +8,7 @@ use List::MoreUtils qw(all);
 my $limit = 0xFF;
 
 my $population =
-{ 
+{
     'p' => [map { undef() } (0 .. $limit)],
 };
 
@@ -97,7 +97,7 @@ sub find
                     $set->(($x | $y), ['|', $x, $y]);
                     $new = 1;
                 }
-                
+
                 if ($new)
                 {
                     next POP;
