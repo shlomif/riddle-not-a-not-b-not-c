@@ -32,7 +32,7 @@ AB~C + ~ABC = C (AB~ + ~AB) = C (A XOR B)
 
 C (AB~ + ~AB) + ABC = C (AB~ + ~AB + AB) = C (A + B)
 
-C (AB~ + ~AB) + ~A~B~C = 
+C (AB~ + ~AB) + ~A~B~C =
 
 AB~C (A + ~B~C) = AB~C
 
@@ -62,7 +62,7 @@ AB~C + ~A~B~C + ~AB~C + A~B~C = ~C
 Alternatives:
 -------------
 
-~(AB + BC + AC) = (~A + ~B)(~A + ~C)(~B + ~C) = (~A + ~B~C)(~B + ~C) = 
+~(AB + BC + AC) = (~A + ~B)(~A + ~C)(~B + ~C) = (~A + ~B~C)(~B + ~C) =
 
 ~[(A+B)(B+C)(A+C)] = ~(A+B) + ~(B+C) + ~(A+C) = ~A~B + ~B~C + ~A~C
 
@@ -86,5 +86,5 @@ A~B~C + B  = B + A~C
 
 / ~A~B -> A + ~B ; B + ~A ; ~A~B~C ; A + ~C ; C + ~A ; ~A (~B + ~C)
 |      -> ~A~B + ~A~C
-\ ~A~C -> 
+\ ~A~C ->
 
