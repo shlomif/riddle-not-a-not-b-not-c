@@ -1,4 +1,4 @@
-Repository containign code for solving
+Repository containing code for solving
 [gaal’s circuit riddle](http://gaal.livejournal.com/234795.html) :
 
 <blockquote>
